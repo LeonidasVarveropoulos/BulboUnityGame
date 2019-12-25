@@ -10048,6 +10048,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &457042856
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 457042857}
+  m_Layer: 8
+  m_Name: WallCheckLeft
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &457042857
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 457042856}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.36, y: -0.035, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1816725524}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -20536,6 +20566,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1619361133
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1619361134}
+  m_Layer: 8
+  m_Name: WallCheckRight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1619361134
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619361133}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.332, y: -0.035, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1816725524}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1816725521
 GameObject:
   m_ObjectHideFlags: 0
@@ -20641,6 +20701,8 @@ Transform:
   - {fileID: 731805900}
   - {fileID: 752398483}
   - {fileID: 2027145175}
+  - {fileID: 1619361134}
+  - {fileID: 457042857}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -20693,6 +20755,7 @@ MonoBehaviour:
   OnCrouchEvent:
     m_PersistentCalls:
       m_Calls: []
+  slidingDropOffScale: 1.05
 --- !u!70 &1816725527
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -20742,8 +20805,17 @@ MonoBehaviour:
   smoothMaterial: {fileID: 6200000, guid: e2decc0e0bae70b4caa52f936f5f64a1, type: 2}
   defaultMaterial: {fileID: 6200000, guid: cad1be6790553d7418defa4831fdec97, type: 2}
   animator: {fileID: 1816725522}
+  reduceSlideScale: 2.75
+  resetSlideScale: 2.75
   runSpeed: 40.3
   gravity: 3
+  maxJumpError: 0.01
+  maxSlideError: 0.01
+  m_WhatIsGround:
+    serializedVersion: 2
+    m_Bits: 512
+  wallCheckRight: {fileID: 1619361134}
+  wallCheckLeft: {fileID: 457042857}
 --- !u!1 &1941913720
 GameObject:
   m_ObjectHideFlags: 0
@@ -20822,7 +20894,7 @@ GameObject:
   - component: {fileID: 2027145175}
   - component: {fileID: 2027145176}
   m_Layer: 0
-  m_Name: Point Light 2D
+  m_Name: LightBulb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

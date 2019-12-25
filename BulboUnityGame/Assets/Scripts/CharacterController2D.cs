@@ -30,6 +30,13 @@ public class CharacterController2D : MonoBehaviour
 	public BoolEvent OnCrouchEvent;
 	private bool m_wasCrouching = false;
 
+    // For the sliding mechanic
+    public float slidingDropOffScale = 1.05f;
+    bool isSlide = false;
+
+    // For wall jump
+    bool wallJump = false;
+
 	private void Awake()
 	{
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
@@ -81,6 +88,7 @@ public class CharacterController2D : MonoBehaviour
 			// If crouching
 			if (crouch)
 			{
+                isSlide = true;
 				if (!m_wasCrouching)
 				{
 					m_wasCrouching = true;
@@ -95,6 +103,7 @@ public class CharacterController2D : MonoBehaviour
 					m_CrouchDisableCollider.enabled = false;
 			} else
 			{
+                isSlide = false;
 				// Enable the collider when not crouching
 				if (m_CrouchDisableCollider != null)
 					m_CrouchDisableCollider.enabled = true;
@@ -125,12 +134,25 @@ public class CharacterController2D : MonoBehaviour
 			}
 		}
 		// If the player should jump...
-		if (m_Grounded && jump)
+		if (jump)
 		{
 			// Add a vertical force to the player.
-			m_Grounded = false;
-			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+            if (wallJump)
+            {
+                m_Grounded = false;
+                m_Rigidbody2D.constraints = RigidbodyConstraints2D.FreezeAll;
+                m_Rigidbody2D.constraints = RigidbodyConstraints2D.None;
+                m_Rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+                m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+            }
+            else
+            {
+                m_Grounded = false;
+                m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+            }
+            wallJump = false;
 		}
+
 
 	}
 
@@ -151,12 +173,20 @@ public class CharacterController2D : MonoBehaviour
     }
     public float reduceSlide(float reduceScale)
     {
-        m_CrouchSpeed = (reduceScale) / 1.05f;
+        m_CrouchSpeed = (reduceScale) / slidingDropOffScale;
         return m_CrouchSpeed;
     }
     public float resetReduceSlide(float n)
     {
         m_CrouchSpeed = n;
         return m_CrouchSpeed;
+    }
+    public bool isSliding()
+    {
+        return isSlide;
+    }
+    public void isWallJump()
+    {
+        wallJump = true;
     }
 }
